@@ -54,7 +54,7 @@ public class Proceso {
         return instanteFin;
     }
 
-    public boolean haUsadoCPU() {
+    public boolean haUsadoCPU(boolean b) {
 
         return haUsadoCPU;
     }
@@ -72,9 +72,16 @@ public class Proceso {
         return tiempoPrimerUsoCPU - llegada;
     }
 
+    public void setTiempoPrimerUsoCPU(int tiempoPrimerUsoCPU){
+        this.tiempoPrimerUsoCPU=tiempoPrimerUsoCPU;
+    }
+
+    public void setHaIniciado(boolean haUsadoCPU) {
+        this.haUsadoCPU = haUsadoCPU;
+    }
+
 public Proceso copiar(){
         return new Proceso(this.nombre, this.llegada, this.rafaga);
 }
-
 
 }
