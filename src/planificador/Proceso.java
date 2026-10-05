@@ -24,45 +24,57 @@ public class Proceso {
     }
 
     public String getNombre() {
+
         return nombre;
     }
     public int getLlegada() {
+
         return llegada;
     }
     public int getRafaga() {
+
         return rafaga;
     }
     public int getTiempoRestante() {
+
         return tiempoRestante;
     }
 
     public EstadoProceso getEstado() {
+
         return estado;
     }
     public void setEstado(EstadoProceso estado) {
+
         this.estado = estado;
     }
 
     public int getInstanteFin() {
+
         return instanteFin;
     }
 
     public boolean haUsadoCPU() {
+
         return haUsadoCPU;
     }
 
     public int getTiempoRetorno() {
+
         return instanteFin - llegada;
     }
     public int getTiempoEspera() {
+
         return getTiempoRetorno() - rafaga;
     }
     public int getTiempoRespuesta() {
+
         return tiempoPrimerUsoCPU - llegada;
     }
 
-
-
+public Proceso copiar(){
+        return new Proceso(this.nombre, this.llegada, this.rafaga);
+}
 
 
 }
