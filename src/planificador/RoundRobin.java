@@ -10,7 +10,7 @@ public class RoundRobin extends Planificador {
     public RoundRobin(List<Proceso> procesos, int quantum)
     {
         super(procesos);
-        this.quantum=quantum;
+        this.quantum= this.quantum;
         this.tiempoQuantum=0;
     }
 
@@ -21,17 +21,17 @@ public class RoundRobin extends Planificador {
     }
 
     @Override
-    protected void verificarFinOQuantum() {
-        if (procesoEnCPU.getTiempoRestante()==0)
+    protected void FinQuantum() {
+        if (proceso.getTiempoRestante()==0)
         {
-            procesoEnCPU.setEstado(EstadoProceso.TERMINADO);
-            procesoEnCPU.setInstanteFin(tiempoActual);
-            procesoEnCPU=null;
+            proceso.setEstado(EstadoProceso.TERMINADO);
+            proceso.setInstanteFin(tiempoActual);
+            proceso =null;
             tiempoQuantum=0;
         } else if (tiempoQuantum==quantum) {
-            procesoEnCPU.setEstado(EstadoProceso.LISTO);
-            colaListos.add(procesoEnCPU);
-            procesoEnCPU = null;
+            proceso.setEstado(EstadoProceso.LISTO);
+            colaListos.add(proceso);
+            proceso = null;
             tiempoQuantum =0;
         }
 

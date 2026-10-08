@@ -1,5 +1,6 @@
 package planificador;
 
+
 public class Proceso {
 
         String nombre;
@@ -8,10 +9,13 @@ public class Proceso {
         int tiempoRestante;
         EstadoProceso estado;
         int instanteFin;
-        int tiempoPrimerUsoCPU;
-        boolean haUsadoCPU;
+        int tiempoPrimero;
+        boolean UsadoCPU;
 
 
+
+
+        //Constructores
     public Proceso(String nombre, int llegada, int rafaga) {
         this.nombre = nombre;
         this.llegada = llegada;
@@ -19,9 +23,14 @@ public class Proceso {
         this.tiempoRestante = rafaga;
         this.estado = EstadoProceso.NUEVO;
         this.instanteFin = -1;
-        this.tiempoPrimerUsoCPU = -1;
-        this.haUsadoCPU = false;
+        this.tiempoPrimero = -1;
+        this.UsadoCPU = false;
+
     }
+
+    //getters
+
+
 
     public String getNombre() {
 
@@ -37,6 +46,7 @@ public class Proceso {
     }
     public int getTiempoRestante() {
 
+
         return tiempoRestante;
     }
 
@@ -44,45 +54,57 @@ public class Proceso {
 
         return estado;
     }
-    public void setEstado(EstadoProceso estado) {
 
-        this.estado = estado;
-    }
 
     public int getInstanteFin() {
+
 
         return instanteFin;
     }
 
     public boolean haUsadoCPU(boolean b) {
 
-        return haUsadoCPU;
+        return UsadoCPU;
     }
 
-    public int getTiempoRetorno() {
+    public int getTiempovuelta() {
 
         return instanteFin - llegada;
     }
     public int getTiempoEspera() {
 
-        return getTiempoRetorno() - rafaga;
+        return getTiempovuelta() - rafaga;
     }
     public int getTiempoRespuesta() {
 
-        return tiempoPrimerUsoCPU - llegada;
+        return tiempoPrimero - llegada;
     }
 
-    public void setTiempoPrimerUsoCPU(int tiempoPrimerUsoCPU){
-        this.tiempoPrimerUsoCPU=tiempoPrimerUsoCPU;
+
+
+    //seters
+    public void setTiempoPrimerUsoCPU(int tiempoPrimerCPU){
+        this.tiempoPrimero=tiempoPrimerCPU;
     }
 
-    public void setInstanteFin(int instanteFin) {
-        this.instanteFin = instanteFin;
+
+    public void setInstanteFin(int momentoFin) {
+        this.instanteFin = momentoFin;
     }
 
-    public void setHaIniciado(boolean haUsadoCPU) {
-        this.haUsadoCPU = haUsadoCPU;
+    public void setHaIniciado(boolean UsadoCPU) {
+        this.UsadoCPU = UsadoCPU;
     }
+
+
+    public void setEstado(EstadoProceso estado) {
+
+        this.estado = estado;
+    }
+
+
+
+    //Metodo
 
 public Proceso copiar(){
         return new Proceso(this.nombre, this.llegada, this.rafaga);

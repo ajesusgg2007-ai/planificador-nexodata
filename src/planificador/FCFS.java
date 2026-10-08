@@ -15,12 +15,12 @@ public class FCFS extends Planificador{
     }
 
     @Override
-    protected void verificarFinOQuantum() {
-        if(procesoEnCPU !=null && procesoEnCPU.getTiempoRestante()==0)
+    protected void FinQuantum() {
+        if(proceso !=null && proceso.getTiempoRestante()==0)
         {
-            procesoEnCPU.setEstado(EstadoProceso.TERMINADO);
-            procesoEnCPU.setInstanteFin(tiempoActual);
-            procesoEnCPU = null;
+            proceso.setEstado(EstadoProceso.TERMINADO);
+            proceso.setInstanteFin(tiempoActual);
+            proceso = null;
         }
 
     }

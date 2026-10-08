@@ -1,5 +1,6 @@
 package planificador;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -47,8 +48,84 @@ public class Main {
         System.out.println("Fichero: " + fichero + " | algoritmo: " + algoritmo
                 + " | quantum: " + quantum + " | traza: " + traza);
 
-        // TODO (tareas 1 a 3): a partir de aquí, lee los procesos del fichero,
-        // simula el algoritmo o algoritmos pedidos y muestra los resultados.
-        // Cuando lo tengas, borra el println de arriba y este comentario.
+        try {
+            //1.Lectura del fichero
+            List<Proceso> datos = LectorFicheros.cargarDesdeFichero(fichero.toString());
+
+            //2/3.simulaciones
+
+            switch (algoritmo) {
+                case "fcfs":
+ejecutarSimulacion(new FCFS(datos),"FCFS",traza);
+
+break;
+
+case "sjf":
+    ejecutarSimulacion(new SJF(datos),"SJF",traza);
+
+    break;
+                case "Rounrobin":
+                    ejecutarSimulacion(new RoundRobin(datos, quantum),"FCFS",traza);
+
+
+                case "todos":
+                    ejecutarSimulacion(new FCFS(datos), "FCFS", traza);
+                    ejecutarSimulacion(new SJF(datos), "SJF", traza);
+                    ejecutarSimulacion(new RoundRobin(datos, quantum), "Round Robin (q=" + quantum + ")", traza);
+                    break;
+            }
+
+
+
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Error en la lectura del fichero: " + e.getMessage());
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Error al acceder al fichero: " + e.getMessage());
+            System.exit(1);
+        }
+
+
     }
+
+    public static void ejecutarSimulacion(Planificador planificador, String nombreAlgoritmo, boolean mostrarTraza) {
+        planificador.ejecutar();
+
+        System.out.println("\n============================================================");
+        System.out.println("ALGORITMO: " + nombreAlgoritmo);
+        System.out.println("============================================================");
+
+        // 2.Diagrama de Gantt
+        System.out.print("Diagrama de Gantt: | ");
+        for (String t : planificador.getTrazaGantt()) {
+            System.out.print(t + " | ");
+        }
+        System.out.println();
+
+        // 3. tabla de métricas/ medias
+        List<Proceso> lista = planificador.getProcesos();
+        System.out.println("\nProceso | Llegada | Ráfaga | Fin | Retorno | Espera | Respuesta");
+        System.out.println("------------------------------------------------------------");
+
+        double sumaRetorno = 0, sumaEspera = 0, sumaRespuesta = 0;
+
+        for (Proceso p : lista) {
+            sumaRetorno += p.getTiempovuelta();
+            sumaEspera += p.getTiempoEspera();
+            sumaRespuesta += p.getTiempoRespuesta();
+
+            System.out.printf("%-7s | %-7d | %-6d | %-3d | %-7d | %-6d | %-9d%n",
+                    p.getNombre(), p.getTiempovuelta(), p.getRafaga(),
+                    p.getInstanteFin(), p.getTiempovuelta(), p.getTiempoEspera(), p.getTiempoRespuesta());
+        }
+
+        int n = lista.size();
+        System.out.println("------------------------------------------------------------");
+        System.out.printf("MEDIAS  |         |        |     | %-7.2f | %-6.2f | %-9.2f%n",
+                (sumaRetorno / n), (sumaEspera / n), (sumaRespuesta / n));
+
+    }
+
 }
+
