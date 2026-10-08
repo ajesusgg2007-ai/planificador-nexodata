@@ -76,6 +76,10 @@ public class Proceso {
         this.tiempoPrimerUsoCPU=tiempoPrimerUsoCPU;
     }
 
+    public void setInstanteFin(int instanteFin) {
+        this.instanteFin = instanteFin;
+    }
+
     public void setHaIniciado(boolean haUsadoCPU) {
         this.haUsadoCPU = haUsadoCPU;
     }

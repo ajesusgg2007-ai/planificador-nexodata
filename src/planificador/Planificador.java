@@ -90,7 +90,9 @@ public abstract class Planificador {
             public List<String> getTrazaGantt () {
                 return trazaGantt;
             }
-        }
+
+
+}
 
 
 
